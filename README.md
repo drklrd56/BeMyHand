@@ -129,7 +129,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
-<!-- \"draft-js": "^0.11.7",
+<!-- \"draft-js": "^0.11.7",//
     "draft-js-custom-styles": "^2.1.1",
     "draft-js-export-html": "^1.4.1",
     "draft-js-image-plugin": "^2.0.7",
