@@ -8,7 +8,7 @@ const ArticleMainHeader = (props) => {
 
   const commands = [
     {
-      command: 'open all articles',
+      command: 'open all articles.',
       callback: () => {
         toolbarButtonClicked('all-articles');
         props.toolBarButtonClickedHandler('all-articles');
@@ -16,7 +16,7 @@ const ArticleMainHeader = (props) => {
       description: 'Opens all articles'
     },
     {
-      command: 'open my articles',
+      command: 'open my articles.',
       callback: () => {
         toolbarButtonClicked('my-articles');
         props.toolBarButtonClickedHandler('my-articles');

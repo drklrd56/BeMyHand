@@ -7,7 +7,7 @@ const WebcamCapture = (props) => {
 
     const commands = [
         {
-          command: 'capture photo',
+          command: 'capture photo.',
           callback: () => { props.addFacialAuth || props.verifyFacialAuth ? captureForFacialAuth() : capture()},
           description: 'Captures Profile Photo'
         }

@@ -81,37 +81,37 @@ function SearchInDirectory(props) {
   //Registered voice commands for this component
   const commands = [
     {
-      command: 'search for *',
+      command: 'search for *.',
       callback: (q) => setQuery(q),
       description: `Searches for the keywords in the directory of ${directoryName} articles`
     },
     {
-      command: 'clear search',
+      command: 'clear search.',
       callback: clearSearchField,
       description: 'Resets the search field'
     },
     {
-      command: 'open *',
+      command: 'open *.',
       callback: (articleTitle) => showBlogByVoiceHandler(articleTitle),
       description: 'Open <article name> opens that article'
     },
     {
-      command: 'go back',
+      command: 'go back.',
       callback: () => props.history.goBack(),
       description: 'Go back to the previous page'
     },
     {
-      command: 'go to homepage',
+      command: 'go to homepage.',
       callback: () => props.history.push('/'),
       description: 'Goes to the home page'
     },
     {
-      command: 'scroll down',
+      command: 'scroll down.',
       callback: () =>
         window.scrollTo({ top: window.pageYOffset + 500, behavior: 'smooth' })
     },
     {
-      command: 'scroll up',
+      command: 'scroll up.',
       callback: () =>
         window.scrollTo({ top: window.pageYOffset - 500, behavior: 'smooth' })
     }

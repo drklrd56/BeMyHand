@@ -65,9 +65,9 @@ const ArticleTopics = (props) => {
     }
   ];
 
-  // useEffect(() => {
-  //     ttsSpeak('Welcome to the Article Directory. What would you like to do?');
-  // }, []);
+  useEffect(() => {
+      ttsSpeak('Welcome to the Article Directory. What would you like to do?');
+  }, []);
 
   //On componentDidMount, set the new commands in the sidebar
   useEffect(() => {

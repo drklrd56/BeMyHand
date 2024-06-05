@@ -93,9 +93,11 @@ function BlogManager(props) {
                 if (!isLiked) {
                   setIsLiked(false);
                   enqueueSnackbar('You unliked this article');
+                  ttsSpeak('You unliked this article.');
                 } else {
                   let variant = 'success';
                   enqueueSnackbar('You liked this article', { variant });
+                  ttsSpeak('You liked this article.');
                 }
                 setLoading(false);
               })
@@ -160,6 +162,7 @@ function BlogManager(props) {
         let variant = 'error';
         //Show error message in the snackbar
         enqueueSnackbar('Article could not be deleted.', { variant });
+        ttsSpeak('Article could not be deleted.');
       });
   };
 
@@ -259,7 +262,7 @@ function BlogManager(props) {
       description: 'Opens all the comments for this article'
     },
     {
-      command: 'delete article',
+      command: 'delete article.',
       callback: handleDeleteArticleClicked,
       description: 'Deletes the article'
     }
@@ -271,7 +274,7 @@ function BlogManager(props) {
   //If the current user is also the author of this article then add another comment for editing the article
   if (owner) {
     commands.push({
-      command: 'edit article',
+      command: 'edit article.',
       callback: handleEditArticleClicked,
       description: 'Opens the article in editor mode'
     });
@@ -424,7 +427,9 @@ function BlogManager(props) {
         let variant = 'success';
         enqueueSnackbar('Your comment has been added successfully', {
           variant
-        });
+        }
+     ); ttsSpeak("Your comment has been added successfully");
+      
       })
       .catch((err) => {
         setLoading(false);

@@ -27,27 +27,27 @@ export default function VCS(props) {
 
   const commands = [
     {
-      command: 'go back',
+      command: 'go back.',
       callback: () => props.history.goBack(),
       description: 'Go back to the previous page'
     },
     {
-      command: 'go to homepage',
+      command: 'go to homepage.',
       callback: () => props.history.push('/'),
       description: 'Goes to the home page'
     },
     {
-      command: 'scroll down',
+      command: 'scroll down.',
       callback: () =>
         window.scrollTo({ top: window.pageYOffset + 500, behavior: 'smooth' })
     },
     {
-      command: 'scroll up',
+      command: 'scroll up.',
       callback: () =>
         window.scrollTo({ top: window.pageYOffset - 500, behavior: 'smooth' })
     },
     {
-      command: 'open version level *',
+      command: 'open version level *.',
       callback: (id) => {
         if (id - 1 < versions.length && id - 1 >= 0)
           props.history.push(

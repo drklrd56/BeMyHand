@@ -14,7 +14,14 @@ import Selector from '../../Selector';
 import { useSpeechRecognition } from 'react-speech-recognition';
 
 import Paper from '@material-ui/core/Paper';
-
+const speech = new SpeechSynthesisUtterance();
+function ttsSpeak(message) {
+  const voices = window.speechSynthesis.getVoices();
+  console.log('voice is availavle');
+  speech.voice = voices[1];
+  speech.text = message;
+  window.speechSynthesis.speak(speech);
+}
 const BlueTextTypography = withStyles({
   root: {
     color: '#4285f4'
@@ -80,13 +87,25 @@ function AddComment(props) {
       },
       description: 'Submits the comment on this blog'
     },
+
+    {
+      command: 'help.',
+      callback: async () => {
+        ttsSpeak(
+          'The available commands are: submit comment, help and close. Say help and i will guide yout through the available commands'
+        );
+      },
+      description: 'Help command'
+    },
     {
       command: 'close.',
       callback: () => props.hide(),
       description: 'Closes this modal.'
     }
   ];
-
+  useEffect(() => {
+    ttsSpeak('this is Add comment page. What would you like to do? if you want any help just say help and i will guide you through the website.');
+}, []);
   const { transcript } = useSpeechRecognition({ commands });
 
   useEffect(() => {

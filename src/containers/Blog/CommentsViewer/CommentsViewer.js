@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Selector from "../../Selector";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Card from "@material-ui/core/Card";
@@ -10,7 +10,7 @@ import MicIcon from "@material-ui/icons/Mic";
 import {makeStyles} from "@material-ui/core/styles";
 import {useSpeechRecognition} from "react-speech-recognition";
 
-
+const speech = new SpeechSynthesisUtterance();
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -39,18 +39,41 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function ttsSpeak(message) {
+    const voices = window.speechSynthesis.getVoices();
+    console.log(voices);
+    speech.voice = voices[1];
+    speech.text = message;
+    console.log(speech);
+    window.speechSynthesis.speak(speech);
+  }
+
+useEffect(() => {
+    ttsSpeak(
+      'This is a comment viewer page. If you want any help just say Help. Speak now'
+    );
+  }, []);
 
 export default function CommentsViewer(props) {
     const classes = useStyles();
     const [offsetTop, setOffsetTop] = useState(0);
     const commands = [
         {
-            command: 'close',
+            command: 'close.',
             callback: () => props.hideShowComment(),
             description: 'Closes this modal.'
         },
         {
-            command: 'scroll comments down',
+            command: 'help.',
+            callback: async () => {
+              ttsSpeak(
+                'The available commands are: go back, help, scroll comments down and scroll comments up. Say help and i will guide yout through the available commands'
+              );
+            },
+            description: 'Help command'
+          },
+        {
+            command: 'scroll comments down.',
             callback: () => {
                 setOffsetTop(prevOffsetTop => {
                     document.querySelector("#selector-element").scrollTo({top: prevOffsetTop + 320, behavior: "smooth"})
@@ -59,7 +82,7 @@ export default function CommentsViewer(props) {
             }
         },
         {
-            command: 'scroll comments up',
+            command: 'scroll comments up.',
             callback: () => {
                 setOffsetTop(prevOffsetTop => {
                     document.querySelector("#selector-element").scrollTo({top: prevOffsetTop - 320, behavior: "smooth"})
