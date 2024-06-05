@@ -265,6 +265,16 @@ function BlogManager(props) {
       command: 'delete article.',
       callback: handleDeleteArticleClicked,
       description: 'Deletes the article'
+    },
+    {
+      command: 'close.',
+      callback: () => {
+        setShowAddComment(false);
+        setShowComments(false);
+        updateSidebar();
+      },
+      description: 'Closes this modal.',
+      isHidden: true
     }
   ];
   //Updates the sidebar to show the registered commands for this component
@@ -427,9 +437,8 @@ function BlogManager(props) {
         let variant = 'success';
         enqueueSnackbar('Your comment has been added successfully', {
           variant
-        }
-     ); ttsSpeak("Your comment has been added successfully");
-      
+        });
+        ttsSpeak('Your comment has been added successfully');
       })
       .catch((err) => {
         setLoading(false);

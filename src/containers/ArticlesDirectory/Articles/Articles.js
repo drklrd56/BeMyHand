@@ -34,11 +34,6 @@ const Articles = (props) => {
       callback: (articleTitle) => showBlogByVoiceHandler(articleTitle),
       description: 'Opens an article'
     },
-    AuthService.getCurrentUser().isAdmin && {
-      command: 'delete *.',
-      callback: (articleTitle) => deleteBlogForAdmin(articleTitle),
-      description: 'Delete an article'
-    },
     {
       command: 'open all articles.',
       callback: () => {},
@@ -84,7 +79,7 @@ const Articles = (props) => {
       description: 'Speaks the names of all articles'
     },
     {
-      command: 'sign out.',
+      command: 'logout.',
       callback: () => {
         console.log('Logging out');
         AuthService.logout();
@@ -94,6 +89,13 @@ const Articles = (props) => {
     }
   ];
 
+  if (AuthService.getCurrentUser().isAdmin) {
+    commands.push({
+      command: 'delete *.',
+      callback: (articleTitle) => deleteBlogForAdmin(articleTitle),
+      description: 'Deletes an article'
+    });
+  }
   useEffect(() => {
     ttsSpeak(
       'Welcome to the Article Directory. What would you like to do? Say help and I will guide you through the commands.'
@@ -146,7 +148,7 @@ const Articles = (props) => {
     if (matchedArticle) {
       const articleId = matchedArticle._id;
       axios
-        .delete(
+        .post(
           `https://bemyhandbackend.onrender.com/delete-article`,
           {
             articleId: articleId

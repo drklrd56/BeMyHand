@@ -1,15 +1,14 @@
-import React, {useState} from 'react';
-import Selector from "../../Selector";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import Card from "@material-ui/core/Card";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import MicIcon from "@material-ui/icons/Mic";
-import {makeStyles} from "@material-ui/core/styles";
-import {useSpeechRecognition} from "react-speech-recognition";
-
+import React, { useState } from 'react';
+import Selector from '../../Selector';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import MicIcon from '@material-ui/icons/Mic';
+import { makeStyles } from '@material-ui/core/styles';
+import { useSpeechRecognition } from 'react-speech-recognition';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,35 +38,38 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
 export default function CommentsViewer(props) {
-    const classes = useStyles();
-    const [offsetTop, setOffsetTop] = useState(0);
-    const commands = [
-        {
-            command: 'close',
-            callback: () => props.hideShowComment(),
-            description: 'Closes this modal.'
-        },
-        {
-            command: 'scroll comments down',
-            callback: () => {
-                setOffsetTop(prevOffsetTop => {
-                    document.querySelector("#selector-element").scrollTo({top: prevOffsetTop + 320, behavior: "smooth"})
-                    return prevOffsetTop + 320;
-                })
-            }
-        },
-        {
-            command: 'scroll comments up',
-            callback: () => {
-                setOffsetTop(prevOffsetTop => {
-                    document.querySelector("#selector-element").scrollTo({top: prevOffsetTop - 320, behavior: "smooth"})
-                    return prevOffsetTop - 320;
-                })
-            }
-        },
-    ];
+  const classes = useStyles();
+  const [offsetTop, setOffsetTop] = useState(0);
+  const commands = [
+    {
+      command: 'close.',
+      callback: () => props.hideShowComment(),
+      description: 'Closes this modal.'
+    },
+    {
+      command: 'scroll comments down.',
+      callback: () => {
+        setOffsetTop((prevOffsetTop) => {
+          document
+            .querySelector('#selector-element')
+            .scrollTo({ top: prevOffsetTop + 320, behavior: 'smooth' });
+          return prevOffsetTop + 320;
+        });
+      }
+    },
+    {
+      command: 'scroll comments up.',
+      callback: () => {
+        setOffsetTop((prevOffsetTop) => {
+          document
+            .querySelector('#selector-element')
+            .scrollTo({ top: prevOffsetTop - 320, behavior: 'smooth' });
+          return prevOffsetTop - 320;
+        });
+      }
+    }
+  ];
 
   const { Transcript } = useSpeechRecognition({ commands });
 

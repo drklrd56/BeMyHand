@@ -104,8 +104,10 @@ function AddComment(props) {
     }
   ];
   useEffect(() => {
-    ttsSpeak('this is Add comment page. What would you like to do? if you want any help just say help and i will guide you through the website.');
-}, []);
+    ttsSpeak(
+      'this is Add comment page. What would you like to do? if you want any help just say help and i will guide you through the website.'
+    );
+  }, []);
   const { transcript } = useSpeechRecognition({ commands });
 
   useEffect(() => {

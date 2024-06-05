@@ -6,8 +6,17 @@ function Sidebar(props) {
   const [commands, setCommands] = useState([]);
 
   const setCommandsState = (cmds) => {
+    let filteredCmds = [];
     if (cmds !== null) {
-      setCommands(cmds);
+      try {
+        filteredCmds = cmds.filter(
+          (cmd) => cmd.isHidden == undefined || cmd.isHidden == false
+        );
+      } catch (e) {
+        console.log(e);
+        filteredCmds = cmds;
+      }
+      setCommands(filteredCmds);
     }
   };
 
