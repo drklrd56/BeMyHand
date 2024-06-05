@@ -6,9 +6,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import TextEditor from './containers/TextEditor';
 import VCS from './containers/Blog/VCS/VCS';
 
-import SignupPage from './containers/Auth/SignupPage';
-import LoginPage from './containers/Auth/SigninPage';
-import ProfilePage from './components/User/Profile/ProfileUI/ProfileUIPage';
+import SignupPage from './components/Pages/User/SingupPage/SignupPage';
+import LoginPage from './components/Pages/User/LoginPage/LoginPage';
 import SearchInDirectory from './containers/ArticlesDirectory/SearchInDirectory';
 
 import BlogManager from './containers/Blog/BlogManager';
@@ -147,7 +146,7 @@ function App(props) {
                 exact
                 render={(props) => <LoginPage {...props} />}
               />
-              <Route
+              {/* <Route
                 path="/profile/:userId"
                 exact
                 render={(props) => (
@@ -156,7 +155,7 @@ function App(props) {
                     {...props}
                   />
                 )}
-              />
+              /> */}
 
               <Route
                 path="/article/:id"
