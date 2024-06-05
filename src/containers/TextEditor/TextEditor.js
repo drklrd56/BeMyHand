@@ -65,7 +65,10 @@ function TextEditor(props) {
   useEffect(() => {
     if (props.match.params.id) {
       axios
-        .get('http://localhost:8000/get-article/' + props.match.params.id)
+        .get(
+          'https://bemyhandbackend.onrender.com/get-article/' +
+            props.match.params.id
+        )
         .then((res) => {
           const article = res.data.article;
           setTitle(article.Title);
@@ -85,9 +88,9 @@ function TextEditor(props) {
   }, []);
 
   const publishArticle = () => {
-    let url = 'http://localhost:8000/add-article';
+    let url = 'https://bemyhandbackend.onrender.com/add-article';
     if (props.editor) {
-      url = 'http://localhost:8000/edit-article';
+      url = 'https://bemyhandbackend.onrender.com/edit-article';
     }
     // let _state = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
     // console.log(_state);
@@ -406,7 +409,7 @@ function TextEditor(props) {
 
         axios
           .post(
-            'http://localhost:8000/convert-to-pdf',
+            'https://bemyhandbackend.onrender.com/convert-to-pdf',
             {
               htmlString: _html,
               headerHTMLString: headerHTMLString,

@@ -109,9 +109,9 @@ const Articles = (props) => {
     let url = '';
     console.log('Button Name:', props.buttonName);
     if (props.buttonName === 'all-articles') {
-      url = 'http://localhost:8000/get-all-articles/';
+      url = 'https://bemyhandbackend.onrender.com/get-all-articles/';
     } else if (props.buttonName === 'my-articles') {
-      url = `http://localhost:8000/get-all-user-articles/${AuthService.getCurrentUser().userId}`;
+      url = `https://bemyhandbackend.onrender.com/get-all-user-articles/${AuthService.getCurrentUser().userId}`;
     }
 
     axios
@@ -147,7 +147,7 @@ const Articles = (props) => {
       const articleId = matchedArticle._id;
       axios
         .delete(
-          `http://localhost:8000/delete-article`,
+          `https://bemyhandbackend.onrender.com/delete-article`,
           {
             articleId: articleId
           },
@@ -176,7 +176,7 @@ const Articles = (props) => {
   const deleteArticleHandler = (id) => {
     axios
       .post(
-        `http://localhost:8000/delete-article`,
+        `https://bemyhandbackend.onrender.com/delete-article`,
         {
           articleId: id
         },

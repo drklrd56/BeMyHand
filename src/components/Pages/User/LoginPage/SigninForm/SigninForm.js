@@ -53,6 +53,7 @@ export default function SignIn(props) {
         setLoading(false);
         const userId = response.userId;
         props.history.push(`/articles-directory/user-articles/${userId}`);
+        console.log('response:', response);
       })
       .catch((error) => {
         setLoading(false);

@@ -158,7 +158,7 @@ const ProfileUI = (props) => {
   useEffect(() => {
     axios
       .get(
-        'http://localhost:8000/get-user-latest-articles/' +
+        'https://bemyhandbackend.onrender.com/get-user-latest-articles/' +
           props.match.params.userId,
         {
           headers: authHeader()
@@ -181,7 +181,7 @@ const ProfileUI = (props) => {
     ) {
       axios
         .get(
-          'http://localhost:8000/get-latest-fav-articles/' +
+          'https://bemyhandbackend.onrender.com/get-latest-fav-articles/' +
             props.match.params.userId,
           {
             headers: authHeader()
@@ -200,9 +200,13 @@ const ProfileUI = (props) => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8000/get-profile/' + props.match.params.userId, {
-        headers: authHeader()
-      })
+      .get(
+        'https://bemyhandbackend.onrender.com/get-profile/' +
+          props.match.params.userId,
+        {
+          headers: authHeader()
+        }
+      )
       .then((response) => {
         console.log(response.data.userProfile);
 
@@ -289,7 +293,7 @@ const ProfileUI = (props) => {
     setModelOpen(false);
     setLoading(true);
     axios
-      .post('http://localhost:8000/upload-profile-picture', fd, {
+      .post('https://bemyhandbackend.onrender.com/upload-profile-picture', fd, {
         headers: authHeader(),
         'content-type': 'multipart/form-data'
       })
@@ -299,7 +303,7 @@ const ProfileUI = (props) => {
       });
 
     // axios
-    // .post("http://localhost:8000/add-facial-auth", fd, {
+    // .post("https://bemyhandbackend.onrender.com/add-facial-auth", fd, {
     //   headers: authHeader(),
     //   'content-type': 'multipart/form-data'
     // })
@@ -319,7 +323,7 @@ const ProfileUI = (props) => {
     setLoading(true);
 
     axios
-      .post('http://localhost:8000/add-facial-auth', fd, {
+      .post('https://bemyhandbackend.onrender.com/add-facial-auth', fd, {
         headers: authHeader(),
         'content-type': 'multipart/form-data'
       })

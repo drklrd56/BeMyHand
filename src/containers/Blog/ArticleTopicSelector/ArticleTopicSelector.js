@@ -17,7 +17,7 @@ function ArticleTopicSelector(props) {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8000/get-topics')
+      .get('https://bemyhandbackend.onrender.com/get-topics')
       .then((res) => {
         setArticleTopics([...res.data.articleTopics]);
         let topicNames = [];

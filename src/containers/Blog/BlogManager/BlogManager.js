@@ -62,7 +62,7 @@ function BlogManager(props) {
         //Post a like request
         axios
           .post(
-            'http://localhost:8000/like-article',
+            'https://bemyhandbackend.onrender.com/like-article',
             {
               articleId: blogId
             },
@@ -74,7 +74,7 @@ function BlogManager(props) {
             //On successful request
             //Another axios request to check for the updated number of likes to show with this blog
             axios
-              .get('http://localhost:8000/get-article/' + blogId)
+              .get('https://bemyhandbackend.onrender.com/get-article/' + blogId)
               .then((res) => {
                 //On Successful request
                 //Set new data received in the response
@@ -135,7 +135,7 @@ function BlogManager(props) {
     setLoading(true);
     axios
       .post(
-        'http://localhost:8000/delete-article',
+        'https://bemyhandbackend.onrender.com/delete-article',
         {
           articleId: blogId
         },
@@ -168,7 +168,7 @@ function BlogManager(props) {
     setLoading(true);
     //GET request to fetch all the comments on the current blog
     axios
-      .get('http://localhost:8000/get-blog-comments/' + blogId)
+      .get('https://bemyhandbackend.onrender.com/get-blog-comments/' + blogId)
       .then((res) => {
         //On successful request
         setLoading(false);
@@ -290,7 +290,7 @@ function BlogManager(props) {
   //Updates the blog config with the fetched blog data
   const updateBlogConfig = (userId) => {
     axios
-      .get('http://localhost:8000/get-article/' + blogId)
+      .get('https://bemyhandbackend.onrender.com/get-article/' + blogId)
       .then((res) => {
         let owner = false;
         if (userId) {
@@ -360,7 +360,9 @@ function BlogManager(props) {
       setUsername(_user.username);
       setUserId(_user.userId);
       axios
-        .get('http://localhost:8000/get-profile', { headers: authHeader() })
+        .get('https://bemyhandbackend.onrender.com/get-profile', {
+          headers: authHeader()
+        })
         .then((res) => {
           console.log(res);
           setUserPic(res.data.userProfile.ProfilePhotoSecureId);
@@ -380,7 +382,7 @@ function BlogManager(props) {
 
   const updateCommentsStats = () => {
     axios
-      .get('http://localhost:8000/get-blog-comments/' + blogId)
+      .get('https://bemyhandbackend.onrender.com/get-blog-comments/' + blogId)
       .then((res) => {
         setNumOfComments(res.data.comments.length);
       })
@@ -394,7 +396,7 @@ function BlogManager(props) {
     setLoading(true);
     axios
       .post(
-        'http://localhost:8000/comment/add-new',
+        'https://bemyhandbackend.onrender.com/comment/add-new',
         {
           text: text,
           articleId: blogId
@@ -407,7 +409,9 @@ function BlogManager(props) {
         setShowAddComment(false);
 
         axios
-          .get('http://localhost:8000/get-blog-comments/' + blogId)
+          .get(
+            'https://bemyhandbackend.onrender.com/get-blog-comments/' + blogId
+          )
           .then((res) => {
             console.log(res);
             setNumOfComments(res.data.comments.length);
