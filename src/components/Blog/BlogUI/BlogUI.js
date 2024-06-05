@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {useEffect, useState} from "react";
 
 import BlogHeader from "./BlogHeader";
@@ -5,6 +6,7 @@ import BlogBody from "./BlogBody";
 import {useSpeechRecognition} from "react-speech-recognition";
 import AddComment from "../../../containers/Blog/AddComment";
 
+import Speech from 'speak-tts';
 import CommentsViewer from "../../../containers/Blog/CommentsViewer";
 function BlogUI(props) {
     // const commands = [

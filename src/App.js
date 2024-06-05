@@ -1,185 +1,193 @@
-import React, {useEffect, useState, lazy, Suspense} from 'react';
-import SpeechRecognition, {useSpeechRecognition} from 'react-speech-recognition';
-import {Route} from 'react-router-dom';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
+import SpeechRecognition from 'react-speech-recognition';
+import { Route } from 'react-router-dom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import HomePage from "./containers/Pages/HomePage";
-// import ArticleTopicCard from "./components/ArticlesDirectory/ArticleTopicCard/ArticleTopicCard";
-// import ArticleListItem from "./components/ArticlesDirectory/ArticleListItem/ArticleListItem";
-// import ArticleMainHeader from "./components/ArticlesDirectory/ArticleMainHeader/ArticleMainHeader";
-// import SearchBar from "./components/ArticlesDirectory/UIElements/SearchBar/SearchBar";
-// import ArticleTopics from "./containers/ArticlesDirectory/ArticleTopics/ArticleTopics";
+import TextEditor from './containers/TextEditor';
+import VCS from './containers/Blog/VCS/VCS';
 
-import ArticleTopicsPage from "./containers/Pages/ArticleTopicsPage/ArticleTopicsPage";
-// import TextEditor from "./containers/TextEditor";
-import VCS from "./containers/Blog/VCS/VCS";
+import SignupPage from './components/Pages/User/SingupPage/SignupPage';
+import LoginPage from './components/Pages/User/LoginPage/LoginPage';
+import ProfilePage from './components/Pages/User/ProfilePage/ProfilePage';
+import SearchInDirectory from './containers/ArticlesDirectory/SearchInDirectory';
 
-import SignupPage from "./components/Pages/User/SingupPage/SIgnupPage";
-import LoginPage from "./components/Pages/User/LoginPage/LoginPage";
-import ProfilePage from "./components/Pages/User/ProfilePage/ProfilePage";
-import SearchInDirectory from "./containers/ArticlesDirectory/SearchInDirectory";
-
-// import Articles from "./containers/ArticlesDirectory/Articles/Articles";
-import BlogManager from "./containers/Blog/BlogManager";
-// import ArticleTopicsPage from "./containers/Pages/ArticleTopicsPage/ArticleTopicsPage";
-import Articles from "./containers/ArticlesDirectory/Articles/Articles";
-import ArticlesPage from "./containers/Pages/ArticlesPage/ArticlesPage";
-
+import BlogManager from './containers/Blog/BlogManager';
+import ArticlesPage from './containers/Pages/ArticlesPage/ArticlesPage';
 
 import './App.css';
-import Sidebar from "./containers/Sidebar";
-import BMHPortfolioBuilder from "./containers/BMHPortfolioBuilder/BMHPortfolioBuilder";
-import BMHPortfolio from "./containers/BMHPortfolio/BMHPortfolio";
-
-const TextEditor = lazy(() => import("./containers/TextEditor"));
+import Sidebar from './containers/Sidebar';
 
 function App(props) {
+  useEffect(() => {
+    SpeechRecognition.startListening({ continuous: true });
+  }, []);
 
-    useEffect(() => {
-        SpeechRecognition.startListening({continuous: true});
-    }, [])
+  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+    alert('can not use speech recognition...');
+  }
 
+  const [sidebar, setSidebar] = useState('');
 
-    if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
-        alert('can not use speech recognition...')
-    }
+  const [setSidebarState, setsetSidebarState] = useState(null);
 
-    const [sidebar, setSidebar] = useState('');
+  const setSidebarStateFunc = (setSidebarStateFunc) => {
+    setsetSidebarState((prevState) => {
+      return setSidebarStateFunc;
+    });
+  };
 
-    const [setSidebarState, setsetSidebarState] = useState(null);
+  return (
+    <>
+      <div className="App">
+        <div
+          style={{ width: '15%', maxHeight: '100vh', height: '100vh' }}
+        ></div>
+        <div
+          style={{
+            width: '15%',
+            height: '100vh',
+            maxHeight: '100vh',
+            overflow: 'auto',
+            borderRight: '1.5px solid #d3d3d3',
+            position: 'fixed',
+            top: '0',
+            left: '0',
+            zIndex: '900',
+            backgroundColor: '#fff'
+          }}
+        >
+          <Sidebar setsetStateFunc={setSidebarStateFunc} />
+        </div>
+        <div style={{ width: '85%' }}>
+          {setSidebarState ? (
+            <React.Fragment>
+              <Route
+                path="/new-article"
+                render={(props) => (
+                  <Suspense fallback={<LinearProgress />}>
+                    <TextEditor
+                      setCommands={(newState) => setSidebarState(newState)}
+                      {...props}
+                    />
+                  </Suspense>
+                )}
+              />
+              <Route
+                path="/edit-article/:id"
+                exact
+                render={(props) => (
+                  <Suspense fallback={<LinearProgress />}>
+                    <TextEditor
+                      editor={true}
+                      setCommands={(newState) => setSidebarState(newState)}
+                      {...props}
+                    />
+                  </Suspense>
+                )}
+              />
+              <Route
+                path="/edit-article/:id/:vid"
+                render={(props) => (
+                  <Suspense fallback={<LinearProgress />}>
+                    <TextEditor
+                      editor={true}
+                      setCommands={(newState) => setSidebarState(newState)}
+                      {...props}
+                    />
+                  </Suspense>
+                )}
+              />
+              <Route
+                path="/blog"
+                exact
+                render={(props) => (
+                  <BlogManager
+                    setCommands={(newState) => setSidebarState(newState)}
+                    {...props}
+                  />
+                )}
+              />
 
-    const setSidebarStateFunc = setSidebarStateFunc => {
-        setsetSidebarState(prevState => {
-            return setSidebarStateFunc;
-        });
-    };
+              <Route
+                path="/articles-directory/:directoryName/search"
+                render={(props) => (
+                  <SearchInDirectory
+                    setCommands={(newState) => setSidebarState(newState)}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                path="/articles-directory/user-articles/:userId"
+                exact
+                render={(props) => (
+                  <ArticlesPage
+                    setCommands={(newState) => setSidebarState(newState)}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                path="/vcs/:id"
+                exact
+                render={(props) => (
+                  <VCS
+                    setCommands={(newState) => setSidebarState(newState)}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                path="/signup"
+                exact
+                render={(props) => <SignupPage {...props} />}
+              />
+              <Route
+                path="/"
+                exact
+                render={(props) => <LoginPage {...props} />}
+              />
+              <Route
+                path="/profile/:userId"
+                exact
+                render={(props) => (
+                  <ProfilePage
+                    setCommands={(newState) => setSidebarState(newState)}
+                    {...props}
+                  />
+                )}
+              />
 
-
-    return (
-        <>
-            <div className="App">
-                {/*<HomePage />*/}
-                {/*<ArticleTopicCard />*/}
-                {/*<ArticleListItem />*/}
-                {/*<ArticleMainHeader />*/}
-                {/*<SearchBar />*/}
-                {/*<ArticleTopics />*/}
-                {/*<ArticleTopicsPage />*/}
-                {/*<Articles />*/}
-                {/*<ArticlesPage />*/}
-                {/*<TextEditor/>*/}
-
-                <div style={{width: '15%', maxHeight: '100vh', height: '100vh'}}></div>
-                <div style={{
-                    width: '15%',
-                    height: '100vh',
-                    maxHeight: '100vh',
-                    overflow: 'auto',
-                    borderRight: '1.5px solid #d3d3d3',
-                    position: 'fixed',
-                    top: '0',
-                    left: '0',
-                    zIndex: '900',
-                    backgroundColor: '#fff',
-                }}><Sidebar setsetStateFunc={setSidebarStateFunc}/></div>
-                <div style={{width: '85%'}}>{setSidebarState ?
-                    (<React.Fragment>
-                            <Route path="/text-editor" render={props => (
-                                <Suspense fallback={<LinearProgress />}>
-                                    <TextEditor
-                                        doc={true}
-                                        setCommands={newState => setSidebarState(newState)}
-                                        {...props} />
-                                </Suspense>)
-                            }/>
-                            <Route path="/portfolio-builder" render={props => (
-                                <Suspense fallback={<LinearProgress />}>
-                                    <BMHPortfolioBuilder
-                                        doc={true}
-                                        setCommands={newState => setSidebarState(newState)}
-                                        {...props} />
-                                </Suspense>)
-                            }/>
-                            <Route path="/portfolio/:id" exact render={props => (
-                                <Suspense fallback={<LinearProgress />}>
-                                    <BMHPortfolio
-                                        setCommands={newState => setSidebarState(newState)}
-                                        {...props} />
-                                </Suspense>)
-                            }/>
-                            <Route path="/new-article" render={props => (
-                                <Suspense fallback={<LinearProgress />}>
-                                    <TextEditor
-                                        setCommands={newState => setSidebarState(newState)}
-                                        {...props} />
-                                </Suspense>)
-                            }/>
-                            <Route path="/edit-article/:id" exact render={props => (
-                                <Suspense fallback={<LinearProgress />}>
-                                    <TextEditor
-                                        editor={true}
-                                        setCommands={newState => setSidebarState(newState)}
-                                        {...props} />
-                                </Suspense>)
-                            }/>
-                            <Route path="/edit-article/:id/:vid" render={props => (
-                                <Suspense fallback={<LinearProgress />}>
-                                    <TextEditor
-                                        editor={true}
-                                        setCommands={newState => setSidebarState(newState)}
-                                        {...props} />
-                                </Suspense>)
-                            }/>
-                            <Route path="/blog" exact render={props => <BlogManager
-                                setCommands={newState => setSidebarState(newState)}
-                                {...props} />}/>
-                            <Route path="/articles-directory/" exact render={props => <ArticleTopicsPage
-                                setCommands={newState => setSidebarState(newState)}
-                                {...props} />}/>
-                            <Route path="/articles-directory/:topicName" exact
-                                   render={props => <ArticlesPage
-                                       setCommands={newState => setSidebarState(newState)}
-                                       {...props}/>}/>
-                            <Route path="/articles-directory/:directoryName/search"
-                                   render={props => <SearchInDirectory
-                                       setCommands={newState => setSidebarState(newState)}
-                                       {...props}/>}/>
-                            <Route path="/articles-directory/user-articles/:userId" exact
-                                   render={props => <ArticlesPage
-                                       setCommands={newState => setSidebarState(newState)}
-                                       {...props}/>}/>
-                            <Route path="/vcs/:id" exact
-                                   render={props => <VCS
-                                       setCommands={newState => setSidebarState(newState)}
-                                       {...props}/>}/>
-                            <Route
-                                path="/signup"
-                                exact
-                                render={(props) => <SignupPage {...props} />}
-                            />
-                            <Route path="/login" exact render={(props) => <LoginPage {...props} />}/>
-                            <Route
-                                path="/profile/:userId"
-                                exact
-                                render={(props) => <ProfilePage setCommands={newState => setSidebarState(newState)} {...props} />}
-                            />
-                            <Route path="/" exact
-                                   render={props => <HomePage
-                                       setCommands={newState => setSidebarState(newState)}
-                                       {...props} />}/>
-                            <Route path="/article/:id" exact render={props => <BlogManager json={true}
-                                                                                           setCommands={newState => setSidebarState(newState)} {...props} />}/>
-                            <Route path="/article-new/:id" exact render={props => <BlogManager json={true}
-                                                                                               setCommands={newState => setSidebarState(newState)} {...props} />}/>
-                        </React.Fragment>
-                    )
-                    : ''}
-
-
-                </div>
-            </div>
-        </>
-    );
+              <Route
+                path="/article/:id"
+                exact
+                render={(props) => (
+                  <BlogManager
+                    json={true}
+                    setCommands={(newState) => setSidebarState(newState)}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                path="/article-new/:id"
+                exact
+                render={(props) => (
+                  <BlogManager
+                    json={true}
+                    setCommands={(newState) => setSidebarState(newState)}
+                    {...props}
+                  />
+                )}
+              />
+            </React.Fragment>
+          ) : (
+            ''
+          )}
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default App;

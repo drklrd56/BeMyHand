@@ -1,5 +1,5 @@
-import React from "react";
-import SignupForm from "../../../../containers/User/Auth/SignupForm/SignupForm";
+import React from 'react';
+import SignupForm from './SignupForm/SignupForm';
 
 const SignupPage = (props) => {
   return (

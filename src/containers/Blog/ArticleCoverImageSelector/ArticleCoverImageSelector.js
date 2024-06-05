@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -29,7 +32,7 @@ function ArticleCoverImageSelector(props) {
 
     const commands = [
         {
-            command: 'search *',
+            command: 'search *.',
             callback: query => {
                 setSearchQuery(query);
                 const url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyAmFfu2RsIuY7DoarLaK-GNoMQAkXoq4sQ&cx=b99ad2dddfcac4813&searchType=image&q="
@@ -42,10 +45,10 @@ function ArticleCoverImageSelector(props) {
                     console.log(err);
                 });
             },
-            description: 'Searches images from the web',
+            description: 'Searches images from the web.',
         },
         {
-            command: 'set image level *',
+            command: 'set image level *.',
             callback: index => {
                 console.log(index);
                 index = parseInt(index);
@@ -56,7 +59,7 @@ function ArticleCoverImageSelector(props) {
             description: 'Sets cover image equal to the image at the level specified'
         },
         {
-            command: 'scroll down',
+            command: 'scroll down.',
             callback: () => {
                 setOffsetTop(prevOffsetTop => {
                     document.querySelector("#selector-element").scrollTo({top: prevOffsetTop + 320, behavior: "smooth"})
@@ -65,7 +68,7 @@ function ArticleCoverImageSelector(props) {
             }
         },
         {
-            command: 'scroll up',
+            command: 'scroll up.',
             callback: () => {
                 setOffsetTop(prevOffsetTop => {
                     document.querySelector("#selector-element").scrollTo({top: prevOffsetTop - 320, behavior: "smooth"})
@@ -74,7 +77,7 @@ function ArticleCoverImageSelector(props) {
             }
         },
         {
-            command: 'close',
+            command: 'close.',
             callback: () => props.hide(),
             description: 'It will close this modal',
         }

@@ -1,45 +1,45 @@
-import React, { useState, useEffect } from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { Link } from 'react-router-dom';
 
-import axios from "axios";
-import AuthService from "../../../../services/auth-service";
+import axios from 'axios';
+import AuthService from '../../../../../services/auth-service';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.main
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+    margin: theme.spacing(3, 0, 2)
+  }
 }));
 
 export default function SignUp(props) {
   const [form, setForm] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
   });
 
   const [loading, setLoading] = useState(false);
@@ -57,9 +57,9 @@ export default function SignUp(props) {
       form.confirmPassword
     )
       .then((response) => {
-        setForm({ username: "", email: "", password: "", confirmPassword: "" });
+        setForm({ username: '', email: '', password: '', confirmPassword: '' });
         setLoading(false);
-        props.history.push("/login");
+        props.history.push('/');
       })
       .catch((error) => {
         setLoading(false);
@@ -76,14 +76,14 @@ export default function SignUp(props) {
 
   return (
     <React.Fragment>
-      {loading ? <LinearProgress /> : ""}
+      {loading ? <LinearProgress /> : ''}
       <Container
         component="main"
         maxWidth="xs"
         style={{
-          border: "1px solid rgba(0,0,0,0.2)",
-          margin: "5rem auto",
-          paddingBottom: "2rem",
+          border: '1px solid rgba(0,0,0,0.2)',
+          margin: '5rem auto',
+          paddingBottom: '2rem'
         }}
       >
         <CssBaseline />
@@ -110,7 +110,7 @@ export default function SignUp(props) {
                       username: event.target.value,
                       email: form.email,
                       password: form.password,
-                      confirmPassword: form.confirmPassword,
+                      confirmPassword: form.confirmPassword
                     });
                   }}
                 />
@@ -130,7 +130,7 @@ export default function SignUp(props) {
                       username: form.username,
                       email: event.target.value,
                       password: form.password,
-                      confirmPassword: form.confirmPassword,
+                      confirmPassword: form.confirmPassword
                     });
                   }}
                 />
@@ -150,7 +150,7 @@ export default function SignUp(props) {
                       username: form.username,
                       email: form.email,
                       password: event.target.value,
-                      confirmPassword: form.confirmPassword,
+                      confirmPassword: form.confirmPassword
                     });
                   }}
                 />
@@ -170,7 +170,7 @@ export default function SignUp(props) {
                       username: form.username,
                       email: form.email,
                       password: form.password,
-                      confirmPassword: event.target.value,
+                      confirmPassword: event.target.value
                     });
                   }}
                 />
@@ -188,7 +188,7 @@ export default function SignUp(props) {
             </Button>
             <Grid container justify="flex-end">
               <Grid item>
-                <Link to="/login" style={{ textDecoration: "none" }}>
+                <Link to="/" style={{ textDecoration: 'none' }}>
                   Already have an account? Sign in
                 </Link>
               </Grid>

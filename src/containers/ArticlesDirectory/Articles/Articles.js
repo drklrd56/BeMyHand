@@ -1,114 +1,216 @@
-import React, {useState, useEffect} from 'react';
+/* eslint-disable eqeqeq */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from 'react';
 import './Articles.scss';
 import axios from 'axios';
-import {useSpeechRecognition} from "react-speech-recognition";
-import AuthService from "../../../services/auth-service";
-import {Route} from 'react-router-dom';
-import {EditorState, convertFromRaw} from 'draft-js';
+import { useSpeechRecognition } from 'react-speech-recognition';
+import AuthService from '../../../services/auth-service';
+import { EditorState, convertFromRaw } from 'draft-js';
+import authHeader from '../../../services/auth-header';
+import ArticleListItem from '../../../components/ArticlesDirectory/ArticleListItem/ArticleListItem';
 
+const speech = new SpeechSynthesisUtterance();
 
-import ArticleListItem from "../../../components/ArticlesDirectory/ArticleListItem/ArticleListItem";
+function ttsSpeak(message) {
+  const voices = window.speechSynthesis.getVoices();
+  speech.voice = voices[1];
+  speech.text = message;
+  window.speechSynthesis.speak(speech);
+}
 
 const Articles = (props) => {
-    //State Initialization for this component
-    const [allArticles, manipulateArticles] = useState([]);
+  const [allArticles, setAllArticles] = useState([]);
 
-    //Registered Voice Commands for this component
-    const commands = [
-        {
-            command: 'open *',
-            callback: (articleTitle) => showBlogByVoiceHandler(articleTitle),
-            description: 'Opens an article'
-        },
-        {
-            command: 'search',
-            callback: () => {props.history.push(`${props.match.url}/search`)},
-            description: 'Search in this directory'
-        },
-        {
-            command: 'go back',
-            callback: () => props.history.goBack(),
-            description: "Goes back to the previous page",
-        },
-        {
-            command: 'scroll down',
-            callback: () => window.scrollTo({top: window.pageYOffset+500,behavior:"smooth"})
-        },
-        {
-            command: 'scroll up',
-            callback: () => window.scrollTo({top: window.pageYOffset-500,behavior:"smooth"})
-        }
-    ];
-
-
-    const {Transcript} = useSpeechRecognition({commands});
-
-    //Load the articles of the category under focus i.e. All Articles or My Articles
-    useEffect(() => {
-        if (props.showLoading) props.showLoading();
-        props.setCommands(commands);
-        const topic = props.match.params.topicName;
-        let url = "";
-        if (props.match.params.userId) {
-            url = 'http://localhost:8000/get-all-user-articles/' + props.match.params.userId;
-        } else {
-            if (props.buttonName === "all-articles") {
-                url = 'http://localhost:8000/get-articles-by-topic/' + topic;
-            }
-            else if (props.buttonName === "my-articles") {
-                url = 'http://localhost:8000/get-articles-by-topic/' + topic + '/' + AuthService.getCurrentUser().userId;
-            }
-            else {
-
-            }
-        }
-        axios.get(url)
-            .then(result => {
-                const articles = result.data.articles;
-                const tempArticles = [];
-
-                for (const article in articles) {
-                    tempArticles.push(articles[article]);
-                }
-                manipulateArticles(tempArticles);
-                if (props.hideLoading) props.hideLoading();
-            })
-            .catch(err => {
-                console.log(err);
+  // Registered Voice Commands for this component
+  const commands = [
+    {
+      command: 'create new article',
+      callback: () => props.history.push('/new-article'),
+      description: 'Opens the text editor to create a new article'
+    },
+    {
+      command: 'open *',
+      callback: (articleTitle) => showBlogByVoiceHandler(articleTitle),
+      description: 'Opens an article'
+    },
+    AuthService.getCurrentUser().isAdmin && {
+      command: 'delete *',
+      callback: (articleTitle) => deleteBlogForAdmin(articleTitle),
+      description: 'Delete an article'
+    },
+    {
+      command: 'open all articles',
+      callback: () => {},
+      description: 'Opens all articles'
+    },
+    {
+      command: 'open my articles',
+      callback: () => {},
+      description: 'Opens user articles.'
+    },
+    {
+      command: 'scroll down.',
+      callback: () =>
+        window.scrollTo({ top: window.pageYOffset + 500, behavior: 'smooth' })
+    },
+    {
+      command: 'scroll up.',
+      callback: () =>
+        window.scrollTo({ top: window.pageYOffset - 500, behavior: 'smooth' })
+    },
+    {
+      command: 'help.',
+      callback: async () => {
+        ttsSpeak(
+          'The available commands are: CREATE NEW ARTICLE, OPEN, Go back, Scroll up, scroll down and help. Speak now'
+        );
+      },
+      description: 'Help command'
+    },
+    {
+      command: 'speak articles.',
+      callback: () => {
+        const speakAllArticles = async () => {
+          for (const article of allArticles) {
+            await new Promise((resolve) => {
+              ttsSpeak(`Article title: ${article.Title}`);
+              speech.onend = resolve;
             });
-    }, [props.buttonName]);
+          }
+        };
+        speakAllArticles();
+      },
+      description: 'Speaks the names of all articles'
+    },
+    {
+      command: 'sign out',
+      callback: () => {
+        console.log('Logging out');
+        AuthService.logout();
+        props.history.push('/');
+      },
+      description: 'Logout from the app'
+    }
+  ];
 
-    //Open an article by passing its id to the article viewer route
-    const showBlogByVoiceHandler = articleTitle => {
-        console.log(articleTitle);
-        articleTitle = articleTitle.toLowerCase();
+  useEffect(() => {
+    // ttsSpeak(
+    //   'Welcome to the Article Directory. What would you like to do? Say help and I will guide you through the commands.'
+    // );
+  }, []);
 
-        allArticles.forEach(article => {
-            if (article.Title.toLowerCase() == articleTitle) {
-                const url = "/article/" + article._id;
-                props.history.push(url);
-            }
-        })
+  const { Transcript } = useSpeechRecognition({ commands });
+
+  useEffect(() => {
+    if (props.showLoading) props.showLoading();
+    props.setCommands(commands);
+    const topic = props.match.params.topicName;
+    let url = '';
+    console.log('Button Name:', props.buttonName);
+    if (props.buttonName === 'all-articles') {
+      url = 'http://localhost:8000/get-all-articles/';
+    } else if (props.buttonName === 'my-articles') {
+      url = `http://localhost:8000/get-all-user-articles/${AuthService.getCurrentUser().userId}`;
     }
 
-    const showBlogHandler = id => {
-        const url = "/article/" + id;
-        props.history.push(url);
-    }
-    return (
-        <div className="AllArticles">
-            {allArticles.map(article => (
-                <ArticleListItem
-                    key={article._id}
-                    title={article.Title}
-                    body={EditorState.createWithContent(convertFromRaw(JSON.parse(article.Body)))}
-                    cover={article.PictureSecureId}
-                    date={article.PostedOn}
-                    showBlogHandler={() => showBlogHandler(article._id)}
-                />
-            ))}
-        </div>
+    axios
+      .get(url)
+      .then((result) => {
+        const articles = result.data.articles;
+        setAllArticles(Object.values(articles)); // Assuming articles is an object
+        if (props.hideLoading) props.hideLoading();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [props.buttonName]);
+
+  const showBlogByVoiceHandler = (articleTitle) => {
+    const matchedArticle = allArticles.find(
+      (article) => article.Title.toLowerCase() === articleTitle.toLowerCase()
     );
-}
+
+    if (matchedArticle) {
+      ttsSpeak(`Opening article: ${matchedArticle.Title}`);
+      const url = `/article/${matchedArticle._id}`;
+      props.history.push(url);
+    }
+  };
+
+  const deleteBlogForAdmin = (articleTitle) => {
+    const matchedArticle = allArticles.find(
+      (article) => article.Title.toLowerCase() === articleTitle.toLowerCase()
+    );
+
+    if (matchedArticle) {
+      const articleId = matchedArticle._id;
+      axios
+        .delete(
+          `http://localhost:8000/delete-article`,
+          {
+            articleId: articleId
+          },
+          {
+            headers: authHeader()
+          }
+        )
+        .then((result) => {
+          console.log(result);
+          const newArticles = allArticles.filter(
+            (article) => article._id !== articleId
+          );
+          setAllArticles(newArticles);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  const showBlogHandler = (id) => {
+    const url = `/article/${id}`;
+    props.history.push(url);
+  };
+
+  const deleteArticleHandler = (id) => {
+    axios
+      .post(
+        `http://localhost:8000/delete-article`,
+        {
+          articleId: id
+        },
+        {
+          headers: authHeader()
+        }
+      )
+      .then((result) => {
+        console.log(result);
+        const newArticles = allArticles.filter((article) => article._id !== id);
+        setAllArticles(newArticles);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  return (
+    <div className="AllArticles">
+      {allArticles.map((article) => (
+        <ArticleListItem
+          key={article._id}
+          title={article.Title}
+          body={EditorState.createWithContent(
+            convertFromRaw(JSON.parse(article.Body))
+          )}
+          cover={article.PictureSecureId}
+          date={article.PostedOn}
+          showBlogHandler={() => showBlogHandler(article._id)}
+          deleteArticleHandler={() => deleteArticleHandler(article._id)}
+        />
+      ))}
+    </div>
+  );
+};
 
 export default Articles;

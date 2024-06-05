@@ -10,113 +10,39 @@
       content="Web site created using create-react-app"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;900&display=swap" rel="stylesheet">
     <title>React App</title>
-<!--     <script src="https://api.gazerecorder.com/GazeCloudAPI.js" ></script>-->
-
-
-    <!-- <style type="text/css">
-       body {
-       overflow: hidden;
-       }
-    </style> -->
-    <!-- <script type = "text/javascript" >
-
-          
-       function PlotGaze(GazeData) {
-
-/*
-GazeData.state // 0: valid gaze data; -1 : face tracking lost, 1 : gaze uncalibrated
-GazeData.docX // gaze x in document coordinates
-GazeData.docY // gaze y in document cordinates
-GazeData.time // timestamp
-*/
-
-       
-           document.getElementById("GazeData").innerHTML = "GazeX: " + GazeData.GazeX + " GazeY: " + GazeData.GazeY;
-           document.getElementById("HeadPhoseData").innerHTML = " HeadX: " + GazeData.HeadX + " HeadY: " + GazeData.HeadY + " HeadZ: " + GazeData.HeadZ;
-           document.getElementById("HeadRotData").innerHTML = " Yaw: " + GazeData.HeadYaw + " Pitch: " + GazeData.HeadPitch + " Roll: " + GazeData.HeadRoll;
-       
-
-       var x = GazeData.docX;
-       var y = GazeData.docY;
-       
-       var gaze = document.getElementById("gaze");
-       x -= gaze .clientWidth/2;
-       y -= gaze .clientHeight/2;
-       
-       
-
-gaze.style.left = x + "px";
-gaze.style.top = y + "px";
-
-       
-       if(GazeData.state != 0)
-       {
-         if( gaze.style.display  == 'block')
-         gaze  .style.display = 'none';
-       }
-       else
-       {
-         if( gaze.style.display  == 'none')
-         gaze  .style.display = 'block';
-       }
-       
-       }
-       
-       //////set callbacks/////////
- window.addEventListener("load", function() {
-
-       GazeCloudAPI.OnCalibrationComplete =function(){ console.log('gaze Calibration Complete')  }
-       GazeCloudAPI.OnCamDenied =  function(){ console.log('camera  access denied')  }
-       GazeCloudAPI.OnError =  function(msg){ console.log('err: ' + msg)  }
-       GazeCloudAPI.UseClickRecalibration = true;
-       GazeCloudAPI.OnResult = PlotGaze; 
-        });
-   
-    </script> -->
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-
-    <!-- <h1>GazeCloudAPI integration example</h1>
-    <button  type="button" onclick="GazeCloudAPI.StartEyeTracking();">Start</button>
-    <button  type="button" onclick="GazeCloudAPI.StopEyeTracking();">Stop</button>
-    <div >
-       <p >  
-          Real-Time Result:
-       <p id = "GazeData" > </p>
-       <p id = "HeadPhoseData" > </p>
-       <p id = "HeadRotData" > </p>
-       </p>
+    
+    <!-- Login Form -->
+    <div id="login-form" style="display:none;">
+      <h2>Login</h2>
+      <form>
+        <label for="login-email">Email:</label><br>
+        <input type="email" id="login-email" name="login-email"><br>
+        <label for="login-password">Password:</label><br>
+        <input type="password" id="login-password" name="login-password"><br><br>
+        <input type="submit" value="Login">
+      </form>
     </div>
-    <div id ="gaze" style ='position: absolute;display:none;width: 100px;height: 100px;border-radius: 50%;border: solid 2px  rgba(255, 255,255, .2);	box-shadow: 0 0 100px 3px rgba(125, 125,125, .5);	pointer-events: none;	z-index: 999999'></div>
-    ;  -->
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    
+    <!-- Signup Form -->
+    <div id="signup-form" style="display:none;">
+      <h2>Signup</h2>
+      <form>
+        <label for="signup-email">Email:</label><br>
+        <input type="email" id="signup-email" name="signup-email"><br>
+        <label for="signup-password">Password:</label><br>
+        <input type="password" id="signup-password" name="signup-password"><br>
+        <label for="signup-confirm-password">Confirm Password:</label><br>
+        <input type="password" id="signup-confirm-password" name="signup-confirm-password"><br><br>
+        <input type="submit" value="Signup">
+      </form>
+    </div>
   </body>
 </html>

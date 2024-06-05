@@ -10,26 +10,28 @@ The tools are:
 - Text Editor
 - Article Directory
 
-
 ### Description of the main product element
 
-### `Text Editor` 
-This is a core module of our application that provides facility to write documents using voice and dictation. At the end the document can be saved as draft, converted and downloaded to PDF or Docx. It includes all the necessary components which a text editor should have to write professional documents i.e. headings, paragraphs, bullet points, inserting images, and applying decoration to the text like bold and italics. 
+### `Text Editor`
+
+This is a core module of our application that provides facility to write documents using voice and dictation. At the end the document can be saved as draft, converted and downloaded to PDF or Docx. It includes all the necessary components which a text editor should have to write professional documents i.e. headings, paragraphs, bullet points, inserting images, and applying decoration to the text like bold and italics.
 
 ### `Articles Directory`
+
 This module makes our users able to manage their articles directory by creating new articles, saving those as drafts, making articles private or public, maintaining version history and publishing them and this all by using their voice and eye-gaze.
-This is the module where our target users can showcase their writing skills to the world. The recruiters/employers can visit and see their published work and contact them using their details available in their profile. 
+This is the module where our target users can showcase their writing skills to the world. The recruiters/employers can visit and see their published work and contact them using their details available in their profile.
 
 ### `CV Builder`
-This module builds a professional CV by providing our users three professional templates at the very beginning. By selecting one out of the given 3 templates, all the fields can be filled by our user using their voice and all in a smooth and user-oriented way. The CV can be saved, added to the Portfolio Web Page (next module) or downloaded as a PDF. 
+
+This module builds a professional CV by providing our users three professional templates at the very beginning. By selecting one out of the given 3 templates, all the fields can be filled by our user using their voice and all in a smooth and user-oriented way. The CV can be saved, added to the Portfolio Web Page (next module) or downloaded as a PDF.
 
 ### `Portfolio Builder`
-This module makes a complete online presence of our users by providing them a webpage where they can add their top-quality work as well as their documents like CV, their details and this all using their voice and eye-gaze. Like CV Builder, it also provides 3 basic templates where a user can select one can build and style it by dragging and dropping complete sections, elements or styles. We provide a unique link to every user which they can share to the world and using that link they can visit their portfolio web page and see their work. 
+
+This module makes a complete online presence of our users by providing them a webpage where they can add their top-quality work as well as their documents like CV, their details and this all using their voice and eye-gaze. Like CV Builder, it also provides 3 basic templates where a user can select one can build and style it by dragging and dropping complete sections, elements or styles. We provide a unique link to every user which they can share to the world and using that link they can visit their portfolio web page and see their work.
 
 ## Project Status
 
 BeMyHand is currently in development. Users can use text editor to write the articles with their voice and can also store them in articles directory.
-
 
 ## Project Screenshots
 
@@ -37,11 +39,9 @@ BeMyHand is currently in development. Users can use text editor to write the art
 
 <img align="center" width = "460" height = "300" src="https://user-images.githubusercontent.com/38074593/102641145-6cfa6a00-417d-11eb-9623-dd6edd4ce636.png">
 
-
 ### Articles Directory
 
 <img align="center" width = "460" height = "300" src="https://user-images.githubusercontent.com/38074593/102641306-af23ab80-417d-11eb-99ff-0b01a4bc2c7f.png">
-
 
 ### Text Editor
 
@@ -57,14 +57,13 @@ BeMyHand is currently in development. Users can use text editor to write the art
 6. Installation undergoing
 7. Click finish
 8. Open windows cmd
-9. To verify installation, open command prompt 
+9. To verify installation, open command prompt
 10. write "node -v" and see if as a result version of the installed node appears
 11. Download/Clone Client and Server Code from Github
 
     - FrontEnd https://github.com/BeMyHand/BeMyHand.git
-    
     - BackEnd https://github.com/BeMyHand/BeMyHandBackend.git
-    
+
 12 Finally, In the project directory, you can run:
 
 ### `npm start`
@@ -130,3 +129,8 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
+<!-- \"draft-js": "^0.11.7",
+    "draft-js-custom-styles": "^2.1.1",
+    "draft-js-export-html": "^1.4.1",
+    "draft-js-image-plugin": "^2.0.7",
+    "draft-js-plugins-editor": "^3.0.0", -->
