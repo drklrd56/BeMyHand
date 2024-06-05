@@ -259,7 +259,7 @@ function BlogManager(props) {
       description: 'Opens all the comments for this article'
     },
     {
-      command: 'delete article',
+      command: 'delete article.',
       callback: handleDeleteArticleClicked,
       description: 'Deletes the article'
     }

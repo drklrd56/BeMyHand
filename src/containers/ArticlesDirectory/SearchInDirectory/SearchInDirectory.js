@@ -81,12 +81,12 @@ function SearchInDirectory(props) {
   //Registered voice commands for this component
   const commands = [
     {
-      command: 'search for *',
+      command: 'search for *.',
       callback: (q) => setQuery(q),
       description: `Searches for the keywords in the directory of ${directoryName} articles`
     },
     {
-      command: 'clear search',
+      command: 'clear search.',
       callback: clearSearchField,
       description: 'Resets the search field'
     },

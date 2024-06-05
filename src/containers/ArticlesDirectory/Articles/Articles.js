@@ -25,27 +25,27 @@ const Articles = (props) => {
   // Registered Voice Commands for this component
   const commands = [
     {
-      command: 'create new article',
+      command: 'create new article.',
       callback: () => props.history.push('/new-article'),
       description: 'Opens the text editor to create a new article'
     },
     {
-      command: 'open *',
+      command: 'open *.',
       callback: (articleTitle) => showBlogByVoiceHandler(articleTitle),
       description: 'Opens an article'
     },
     AuthService.getCurrentUser().isAdmin && {
-      command: 'delete *',
+      command: 'delete *.',
       callback: (articleTitle) => deleteBlogForAdmin(articleTitle),
       description: 'Delete an article'
     },
     {
-      command: 'open all articles',
+      command: 'open all articles.',
       callback: () => {},
       description: 'Opens all articles'
     },
     {
-      command: 'open my articles',
+      command: 'open my articles.',
       callback: () => {},
       description: 'Opens user articles.'
     },
@@ -84,7 +84,7 @@ const Articles = (props) => {
       description: 'Speaks the names of all articles'
     },
     {
-      command: 'sign out',
+      command: 'signout.',
       callback: () => {
         console.log('Logging out');
         AuthService.logout();

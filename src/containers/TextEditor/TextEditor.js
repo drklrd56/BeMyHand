@@ -162,7 +162,7 @@ function TextEditor(props) {
       description: 'Goes back to the previous page'
     },
     {
-      command: 'set title *',
+      command: 'set title *.',
       callback: async (title) => {
         ttsSpeak(
           'Set the title of the article. Please say "set title" followed by the title of the article.'
@@ -379,7 +379,7 @@ function TextEditor(props) {
       description: 'Sets Font-Family to Times New Roman'
     },
     {
-      command: 'post article',
+      command: 'post article.',
       callback: () => {
         publishArticle();
       }
