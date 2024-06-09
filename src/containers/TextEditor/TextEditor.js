@@ -82,9 +82,9 @@ function TextEditor(props) {
           console.log(err);
         });
     }
-    // ttsSpeak(
-    //   'Welcome to the text editor. You can start writing your article now. If you need any help, just say "help" and I will guide you through the available commands. Say the word clean to clear the text editor.'
-    // );
+    ttsSpeak(
+      'Welcome to the text editor. You can start writing your article now. If you need any help, just say "help" and I will guide you through the available commands. Say the word clean to clear the text editor.'
+    );
   }, []);
 
   const publishArticle = () => {
@@ -179,7 +179,7 @@ function TextEditor(props) {
       command: 'help.',
       callback: async () => {
         ttsSpeak(
-          'The available commands are:Go to homw page, set title,help, speak, stop speaking, bold, italics, underline, strikethrough, normal text, code, heading level 1, heading level 2, heading level 3, heading level 4, heading level 5,    heading level 6, code block, block quote, ordered list, unordered list, new line, set font, set font family, publish Article and clean . You can also use the toolbar to format your text. If you need any help, just say "help" and I will guide you through the available commands. Say the word clean to clear the text editor.'
+          'The available commands are:Go to homw page, set title,help, speak, stop speaking, bold, italics, underline, strikethrough, normal text, code, heading level 1, heading level 2, heading level 3, heading level 4, heading level 5,    heading level 6, code block, block quote, ordered list, unordered list, new line, set font, set font family, post article and clean . You can also use the toolbar to format your text. If you need any help, just say "help" and I will guide you through the available commands. Say the word clean to clear the text editor.'
         );
       },
       description: 'Help command'
