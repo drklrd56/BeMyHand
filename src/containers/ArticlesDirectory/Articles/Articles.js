@@ -79,7 +79,7 @@ const Articles = (props) => {
       description: 'Speaks the names of all articles'
     },
     {
-      command: 'logout.',
+      command: 'logout',
       callback: () => {
         console.log('Logging out');
         AuthService.logout();

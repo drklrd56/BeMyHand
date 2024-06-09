@@ -443,8 +443,6 @@ function TextEditor(props) {
     }
   ];
 
-  
-
   const updateSidebar = () => {
     if (props.editor) {
       commands.push();

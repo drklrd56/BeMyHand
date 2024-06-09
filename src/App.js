@@ -146,16 +146,6 @@ function App(props) {
                 exact
                 render={(props) => <LoginPage {...props} />}
               />
-              {/* <Route
-                path="/profile/:userId"
-                exact
-                render={(props) => (
-                  <ProfilePage
-                    setCommands={(newState) => setSidebarState(newState)}
-                    {...props}
-                  />
-                )}
-              /> */}
 
               <Route
                 path="/article/:id"
