@@ -79,12 +79,33 @@ const Articles = (props) => {
       description: 'Speaks the names of all articles'
     },
     {
-      command: 'logout',
+      command: 'log out',
       callback: () => {
         console.log('Logging out');
         AuthService.logout();
         props.history.push('/');
       },
+      hidden: true,
+      description: 'Logout from the app'
+    },
+    {
+      command: 'logout.',
+      callback: () => {
+        console.log('Logging out');
+        AuthService.logout();
+        props.history.push('/');
+      },
+      hidden: true,
+      description: 'Logout from the app'
+    },
+    {
+      command: 'log out.',
+      callback: () => {
+        console.log('Logging out');
+        AuthService.logout();
+        props.history.push('/');
+      },
+      hidden: true,
       description: 'Logout from the app'
     }
   ];

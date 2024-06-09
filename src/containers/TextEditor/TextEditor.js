@@ -179,7 +179,7 @@ function TextEditor(props) {
       command: 'help.',
       callback: async () => {
         ttsSpeak(
-          'The available commands are:Go to homw page, set title,help, speak, stop speaking, bold, italics, underline, strikethrough, normal text, code, heading level 1, heading level 2, heading level 3, heading level 4, heading level 5,    heading level 6, code block, block quote, ordered list, unordered list, new line, set font, set font family, publish Article generate PDF and clean . You can also use the toolbar to format your text. If you need any help, just say "help" and I will guide you through the available commands. Say the word clear to clear the text editor.'
+          'The available commands are:Go to homw page, set title,help, speak, stop speaking, bold, italics, underline, strikethrough, normal text, code, heading level 1, heading level 2, heading level 3, heading level 4, heading level 5,    heading level 6, code block, block quote, ordered list, unordered list, new line, set font, set font family, publish Article and clean . You can also use the toolbar to format your text. If you need any help, just say "help" and I will guide you through the available commands. Say the word clear to clear the text editor.'
         );
       },
       description: 'Help command'
@@ -383,63 +383,6 @@ function TextEditor(props) {
       callback: () => {
         publishArticle();
       }
-    },
-    {
-      command: 'generate PDF.',
-      callback: () => {
-        let contentState = editorState.getCurrentContent();
-
-        let htmlString = stateToHTML(contentState);
-        let headerHTMLString = '<p></p>';
-        let footerHTMLString = '<p></p>';
-
-        let _html = `<!DOCTYPE html>
-                <html>
-                <head>
-                    <title>Page Title</title>
-                </head>
-                <body>
-                ${htmlString}
-                </body>
-                </html>`;
-        ttsSpeak('Downloading the article it will take a few seconds');
-        // speech.speak({
-        //   text: 'Downloading the article it will take a few seconds'
-        // });
-
-        axios
-          .post(
-            'https://bemyhandbackend.onrender.com/convert-to-pdf',
-            {
-              htmlString: _html,
-              headerHTMLString: headerHTMLString,
-              footerHTMLString: footerHTMLString,
-              documentOptions: {
-                title: 'Article'
-              }
-            },
-            {
-              responseType: 'blob'
-            }
-          )
-          .then((res) => {
-            console.log(res);
-            const url = window.URL.createObjectURL(res.data);
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', 'article.pdf'); //or any other extension
-            document.body.appendChild(link);
-            link.click();
-            ttsSpeak('The article has been downloaded successfully');
-            // speech.speak({
-            //   text: 'The article has been downloaded successfully'
-            // });
-          })
-          .catch((err) => {
-            console.log('Unable to download PDF', err);
-          });
-      },
-      description: 'Generates PDF document'
     }
   ];
 
