@@ -58,7 +58,7 @@ const Articles = (props) => {
       command: 'help.',
       callback: async () => {
         ttsSpeak(
-          'The available commands are: CREATE NEW ARTICLE, OPEN, delete, opn all articles, open my articles, Scroll up, scroll down, speak articles, signout and help. Speak now'
+          'The available commands are: CREATE NEW ARTICLE, OPEN, delete, opn all articles, open my articles, Scroll up, scroll down, speak articles and help. Speak now'
         );
       },
       description: 'Help command'
@@ -77,36 +77,6 @@ const Articles = (props) => {
         speakAllArticles();
       },
       description: 'Speaks the names of all articles'
-    },
-    {
-      command: 'log out',
-      callback: () => {
-        console.log('Logging out');
-        AuthService.logout();
-        props.history.push('/');
-      },
-      hidden: true,
-      description: 'Logout from the app'
-    },
-    {
-      command: 'logout.',
-      callback: () => {
-        console.log('Logging out');
-        AuthService.logout();
-        props.history.push('/');
-      },
-      hidden: true,
-      description: 'Logout from the app'
-    },
-    {
-      command: 'log out.',
-      callback: () => {
-        console.log('Logging out');
-        AuthService.logout();
-        props.history.push('/');
-      },
-      hidden: true,
-      description: 'Logout from the app'
     }
   ];
 

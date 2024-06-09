@@ -8,8 +8,10 @@ import Button from '../../../components/ArticlesDirectory/UIElements/Button/Butt
 import { Route } from 'react-router-dom';
 import Fab from '@material-ui/core/Fab';
 import MicIcon from '@material-ui/icons/Mic';
-
+import AuthService from '../../../services/auth-service';
 import LinearProgress from '@material-ui/core/LinearProgress';
+
+const speech = new SpeechSynthesisUtterance();
 
 const ArticlesPage = (props) => {
   //States Initialization for this component
@@ -27,7 +29,16 @@ const ArticlesPage = (props) => {
   const toolBarButtonClickedHandler = (buttonName) => {
     setButtonClickedName(buttonName);
   };
+
   console.log(props.match.params.userId);
+
+  function ttsSpeak(message) {
+    const voices = window.speechSynthesis.getVoices();
+    speech.voice = voices[1];
+    speech.text = message;
+    window.speechSynthesis.speak(speech);
+  }
+
   return (
     <React.Fragment style={{ position: 'relative' }}>
       {loading ? <LinearProgress /> : ''}
@@ -56,12 +67,16 @@ const ArticlesPage = (props) => {
         aria-label="add"
         style={{ position: 'fixed', bottom: '5%', right: '5%' }}
         variant="extended"
-        onClick={() => props.history.push('/create-article')}
+        onClick={() => {
+          ttsSpeak('You have been logged out successfully');
+          console.log('Logging out');
+          AuthService.logout();
+          props.history.push('/');
+          window.location.reload();
+        }}
       >
-        <MicIcon style={{ marginRight: '0.7rem' }} />
-        Create New Article
+        Logout
       </Fab>
-      {/*}*/}
     </React.Fragment>
   );
 };

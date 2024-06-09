@@ -18,7 +18,12 @@ class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('user');
+    try {
+      localStorage.removeItem('user');
+      console.log('logging out');
+    } catch (e) {
+      console.log('Unable to logout', e);
+    }
   }
 
   register(username, email, password, confirmPassword) {

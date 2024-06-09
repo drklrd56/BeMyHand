@@ -10,7 +10,7 @@ function Sidebar(props) {
     if (cmds !== null) {
       try {
         filteredCmds = cmds.filter(
-          (cmd) => cmd.isHidden == undefined || cmd.isHidden == false
+          (cmd) => cmd.isHidden === undefined || cmd.isHidden === false
         );
       } catch (e) {
         console.log(e);
